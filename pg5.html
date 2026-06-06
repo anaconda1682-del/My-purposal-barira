@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flower & Love Quiz</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+    background-image: url('background11.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Light dark overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+/* Top Image */
+#topImage {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    opacity: 0;
+    z-index: 5;
+    animation: floatTop 3s forwards;
+}
+@keyframes floatTop {
+    0% { opacity: 0; transform: translate(-50%, -50px); }
+    100% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Flower */
+#flower {
+    position: absolute;
+    bottom: -400px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    z-index: 2;
+    opacity: 0;
+    animation: flyUp 3s forwards;
+}
+@keyframes flyUp {
+    0% { bottom: -400px; opacity: 0; }
+    100% { bottom: 30%; transform: translate(-50%, 50%); opacity: 1; }
+}
+
+/* Bottom Image */
+#bottomImage {
+    position: absolute;
+    bottom: -400px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 1.5s ease, bottom 1.5s ease;
+}
+#bottomImage.show {
+    bottom: 200px;
+    opacity: 1;
+}
+
+/* RESULT IMAGE (FLOATING) */
+#resultImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    width: 800px;
+    opacity: 0;
+    z-index: 20;
+    transition: 1s;
+    animation: floatResult 3s infinite ease-in-out alternate;
+}
+#resultImage.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+@keyframes floatResult {
+    0% { transform: translate(-50%, -50%) translateY(0); }
+    100% { transform: translate(-50%, -50%) translateY(-20px); }
+}
+
+/* Glass box */
+.glass-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    padding: 40px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: #fff;
+    z-index: 10;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    animation: floatGlass 3s infinite alternate;
+}
+.show-box {
+    animation: fadeInBox 1.5s forwards;
+}
+@keyframes fadeInBox {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes floatGlass {
+    0% { transform: translate(-50%, -50%); }
+    100% { transform: translate(-50%, -48%); }
+}
+
+/* Buttons */
+.option-btn {
+    display: block;
+    margin: 12px auto;
+    width: 80%;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+    color: #0ff;
+    font-size: 20px;
+    cursor: pointer;
+}
+.option-btn:hover {
+    transform: scale(1.05);
+}
+
+.neon-btn {
+    margin-top: 20px;
+    padding: 15px 30px;
+    border-radius: 50px;
+    border: 2px solid #fff;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Hearts */
+.heart {
+    position: fixed;
+    bottom: 0;
+    animation: heartRise 5s linear forwards;
+}
+@keyframes heartRise {
+    100% { bottom: 100vh; opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<img id="topImage" src="top-image11.png">
+
+<div class="glass-box" id="glassBox">
+    <h2>Alizay, how much you love me?</h2>
+    <button class="option-btn">25% Love You Ali</button>
+    <button class="option-btn">50% Love You Ali</button>
+    <button class="option-btn">75% Love You Ali</button>
+    <button class="option-btn">100% Love You Ali</button>
+    <button class="neon-btn">I Love You Ali</button>
+</div>
+
+<img id="flower" src="flower.png">
+<img id="bottomImage" src="bottom-image1.png">
+<img id="resultImage" src="">
+
+<audio id="bgMusic" loop>
+    <source src="background-music.mp3">
+</audio>
+
+<script>
+
+// music
+document.addEventListener('click', function playMusic() {
+    const music = document.getElementById('bgMusic');
+    if (music.paused) music.play().catch(()=>{});
+    document.removeEventListener('click', playMusic);
+});
+
+// heart rain
+function startHeartRain() {
+    const symbols = ['❤️','💙','💛','💚','💜'];
+    const interval = setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+        heart.style.left = Math.random()*100 + 'vw';
+        document.body.appendChild(heart);
+        setTimeout(()=> heart.remove(),5000);
+    }, 200);
+    setTimeout(()=> clearInterval(interval), 10000);
+}
+
+// flower end
+document.getElementById('flower').addEventListener('animationend', () => {
+    startHeartRain();
+    setTimeout(()=>{
+        document.getElementById('bottomImage').classList.add('show');
+    },3000);
+});
+
+// show box
+window.onload = () => {
+    setTimeout(()=>{
+        document.getElementById('glassBox').classList.add('show-box');
+    },10000);
+};
+
+// OPTION SELECT
+let selectedOption = "";
+const options = document.querySelectorAll('.option-btn');
+
+options.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+        options.forEach(b => b.style.boxShadow = "none");
+        btn.style.boxShadow = "0 0 15px #0ff";
+
+        if(index === 0) selectedOption = "img1.png";
+        if(index === 1) selectedOption = "img2.png";
+        if(index === 2) selectedOption = "img3.png";
+        if(index === 3) selectedOption = "img4.png";
+    });
+});
+
+// BUTTON CLICK - SHOW ONLY SELECTED IMAGE AND HIDE ALL OTHERS
+document.querySelector('.neon-btn').addEventListener('click', () => {
+    if(selectedOption === "") return;
+
+    // hide all other elements
+    document.getElementById('glassBox').style.display = "none";
+    document.getElementById('flower').style.display = "none";
+    document.getElementById('bottomImage').style.display = "none";
+    document.getElementById('topImage').style.display = "none";
+
+    // show selected option as floating result
+    const result = document.getElementById('resultImage');
+    result.src = selectedOption;
+    setTimeout(()=> result.classList.add('show'), 200);
+
+    // make floating image clickable to open new page
+    result.style.cursor = "pointer";
+    result.onclick = () => {
+        if(selectedOption === "img1.png") window.open("page1.html", "_blank");
+        if(selectedOption === "img2.png") window.open("page2.html", "_blank");
+        if(selectedOption === "img3.png") window.open("page3.html", "_blank");
+        if(selectedOption === "img4.png") window.open("page4.html", "_blank");
+    };
+});
+</script>
+
+</body>
+</html>
