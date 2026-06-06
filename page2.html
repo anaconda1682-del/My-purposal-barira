@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Letter Animation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:ital,wght@1,600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background: url('YOUR_BACKGROUND_IMAGE.jpg') no-repeat center center/cover;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Overlay */
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+/* Top Floating */
+#top-floating {
+  width: 600px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: floatTop 3s ease-in-out infinite;
+}
+
+@keyframes floatTop {
+  0% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-15px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+/* Center Image */
+#center-image {
+  width: 900px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 5;
+  animation: float 4s ease-in-out infinite;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes float {
+  0% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-20px); }
+  100% { transform: translate(-50%, -50%) translateY(0); }
+}
+
+/* Golden Background */
+#center-image-gold {
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+/* Glass Box */
+.glass-box {
+  width: 500px;
+  padding: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  background: rgba(255,0,0,0.15);
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 1s;
+  /* Auto adjust height */
+  display: inline-block;
+  white-space: normal;
+}
+
+/* show letter */
+.glass-box.open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.glass-box h1 {
+  font-family: 'Playfair Display', serif;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.typing-text {
+  color: white;
+  margin: 20px 0;
+  line-height: 1.5em;
+  font-size: 16px;
+  overflow-wrap: break-word;
+}
+
+/* Button */
+.glass-box button {
+  padding: 12px 25px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255,0,0,0.3);
+  color: white;
+  cursor: pointer;
+  font-family: 'Great Vibes', cursive;
+  font-size: 22px;
+  margin-top: 15px;
+}
+
+/* 💖 Heart Snowfall */
+.heart {
+  position: fixed;
+  top: -10px;
+  color: #ff4d6d;
+  animation: snow 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes snow {
+  0% { transform: translateY(-10px); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bg-music" loop>
+  <source src="romantic-piano.mp3" type="audio/mpeg">
+</audio>
+
+<div id="overlay"></div>
+
+<img src="YOUR_TOP_FLOAT_IMAGE.png" id="top-floating">
+<img src="YOUR_CENTER_IMAGE.png" id="center-image">
+<img src="YOUR_CENTER_IMAGE.png" id="center-image-gold">
+
+<div class="glass-box" id="glass-box">
+  <h1>Certificate Of My Heart</h1>
+  <div class="typing-text" id="typing-text"></div>
+
+  <button onclick="window.open('https://www.snapchat.com/add/arinda_851?share_id=v9P6WfpIv0E&locale=en-US','_blank')">
+    My Heart Is Waiting
+  </button>
+</div>
+
+<script>
+// Play Music
+document.getElementById("overlay").onclick = () => {
+  document.getElementById("bg-music").play();
+  document.getElementById("overlay").remove();
+};
+
+// Typing effect
+const text = `Meri Jaan Alizay, Tum mere liye sirf ek pasand nahi, balki meri zindagi ka sabse pyara hissa ho. Mujhe pata hai ke abhi tum mujhse 50% mohabbat karti ho, lekin meri har saans, har dhadkan aur har pal ka maksad yeh hai ke Inshallah main us 50% ko bohot jaldi 100% bana doon. Main tumhe itna pyar karta hoon ke har ehsaas, har lafz aur har pal sirf tumhare liye hai. Tum meri khushi ka sabab ho, meri duniya ka roshan sitara ho, aur tumhari muskurahat meri zindagi ka sabse haseen hissa hai. Mera har din tumhari khushi aur sukoon ke liye hai. Main chahta hoon ke tum mere pyaar, wafadari aur jazbaat ko mehsoos karo, aur yakeen rakho ke tumhara dil sirf mere liye aur meri mohabbat se roshan hoga. Meri Jaan, tum meri zindagi ka sabse haseen tohfa ho, aur main har pal tumhare saath apni zindagi jeena chahta hoon. Tumhare 50% pyaar ko Inshallah main 100% tak le jaunga, aur tumhare dil ka har kone sirf meri mohabbat se bhar doonga.
+Main tumse wada karta hoon ke meri mohabbat tumhare liye hamesha aur bohot zyada hogi, aur main tumhe duniya ka sabse pyara aur surakshit ehsaas dilaoonga. Tum meri Jaan ho, aur main hamesha tumhara hoon.`;
+let i = 0;
+function type(){
+  if(i < text.length){
+    document.getElementById("typing-text").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type, 50);
+    // Auto scroll as text grows
+    const box = document.getElementById("glass-box");
+    box.scrollTop = box.scrollHeight;
+  }
+}
+
+// Click center image → open letter
+document.getElementById("center-image").onclick = () => {
+  const img = document.getElementById("center-image");
+  const box = document.getElementById("glass-box");
+  const gold = document.getElementById("center-image-gold");
+
+  img.style.opacity = "0";
+  setTimeout(() => {
+    img.style.display = "none";
+    gold.style.opacity = "0.3";
+    box.classList.add("open");
+    type();
+  }, 500);
+};
+
+// 💖 Snow hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random()*20) + "px";
+  heart.style.animationDuration = (4 + Math.random()*4) + "s";
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
