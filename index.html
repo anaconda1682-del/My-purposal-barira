@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Alizay Login PRO</title>
+
+<style>
+@font-face{
+  font-family:'Geraldine';
+  src:url('Geraldine.ttf');
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Geraldine', cursive;
+  color:white;
+  overflow:hidden;
+  background:#000;
+}
+
+/* VIDEO */
+#bgVideo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+
+/* OVERLAY */
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  z-index:-1;
+}
+
+/* LIGHT EFFECT */
+body::before{
+  content:'';
+  position:absolute;
+  width:400px;
+  height:400px;
+  background: radial-gradient(circle,#7f8cff,transparent);
+  filter: blur(120px);
+  animation:move 10s infinite alternate;
+}
+
+@keyframes move{
+  0%{transform:translate(-50px,-50px);}
+  100%{transform:translate(50px,50px);}
+}
+
+/* BOX */
+.container{
+  width:90%;
+  max-width:380px;
+  padding:30px;
+  border-radius:25px;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.2);
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  text-align:center;
+  z-index:2;
+}
+
+/* LOGO */
+.logo{
+  font-size:48px;
+  letter-spacing:6px;
+  margin-bottom:10px;
+  animation:glow 2s infinite;
+}
+.logo span{
+  color:#ffcc00;
+}
+
+@keyframes glow{
+  0%{text-shadow:0 0 5px #ffcc00;}
+  50%{text-shadow:0 0 20px #ffcc00;}
+  100%{text-shadow:0 0 5px #ffcc00;}
+}
+
+/* INPUT */
+.field{
+  margin:20px 0;
+}
+.field input{
+  width:100%;
+  padding:12px;
+  background:transparent;
+  border:none;
+  border-bottom:2px solid rgba(255,255,255,0.4);
+  color:white;
+  font-size:16px;
+  outline:none;
+}
+
+/* BUTTON */
+.login-btn{
+  margin-top:25px;
+}
+.login-btn button{
+  width:100%;
+  padding:14px;
+  font-size:18px;
+  border-radius:30px;
+  border:none;
+  background:#7f8cff;
+  color:#fff;
+  cursor:pointer;
+  transition:0.3s;
+}
+.login-btn button:hover{
+  transform:scale(1.05);
+}
+
+/* FOOTER */
+.footer{
+  margin-top:20px;
+  font-size:14px;
+  opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+<video autoplay muted loop id="bgVideo">
+  <source src="bg.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="login-music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+  <!-- CHANGED LOGO -->
+  <div class="logo">AL<span>I</span>ZAY</div>
+
+  <div class="field">
+    <input type="text" placeholder="Username" id="user">
+  </div>
+
+  <div class="field">
+    <input type="password" placeholder="Password" id="pass">
+  </div>
+
+  <div class="login-btn">
+    <button onclick="login()">Open my heart</button>
+  </div>
+
+  <div class="footer">from <b>ALI HAIDER</b></div>
+
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+// FORCE LOAD
+music.load();
+music.volume = 1;
+
+// MAIN FIX (click/touch = play)
+function startMusic(){
+  music.play().catch(()=>{});
+}
+
+// Mobile + Chrome fix
+document.body.addEventListener("click", startMusic, {once:true});
+document.body.addEventListener("touchstart", startMusic, {once:true});
+
+// Backup (input focus)
+document.getElementById("user").addEventListener("focus", startMusic);
+document.getElementById("pass").addEventListener("focus", startMusic);
+
+// LOGIN
+function login(){
+  startMusic();
+
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
+
+  if(u === "Ali-Alizay" && p === "Alizay@123"){
+    window.location.href = "heart.html";
+  }
+}
+</script>
+
+</body>
+</html>
