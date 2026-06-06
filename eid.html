@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid Mubarak Meri Jaan Barira</title>
+
+<!-- BlowBrush font for floating images if needed -->
+<link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
+
+<!-- Lobster font for Eid text, name, and button -->
+<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* Stars */
+.stars {
+    width: 100%;
+    height: 100%;
+    background: transparent url('https://www.transparenttextures.com/patterns/stardust.png');
+    position: absolute;
+    animation: moveStars 60s linear infinite;
+    z-index: 1;
+}
+@keyframes moveStars {
+    from {background-position: 0 0;}
+    to {background-position: 10000px 5000px;}
+}
+
+/* Moon and floating heart */
+.moon, .heart-float {
+    position: absolute;
+    font-size: 30px;
+    animation: float-icon 6s ease-in-out infinite;
+    z-index: 2;
+}
+.moon { left: 5%; top: 15%; color: #ffd700; }
+.heart-float { right: 5%; bottom: 15%; color: red; }
+@keyframes float-icon {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-25px);}
+}
+
+/* Floating Images */
+.floating-top {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    max-height: 500px;
+    border-radius: 50%;
+    z-index: 4;
+    top: 1%;
+    animation: floatTop 4s ease-in-out infinite;
+}
+.floating-top-2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    max-height: 500px;
+    border-radius: 50%;
+    z-index: 4;
+    top: 16%;
+    animation: floatTop 4s ease-in-out infinite;
+}
+.floating-top-3 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 450px;
+    max-height: 500px;
+    border-radius: 50%;
+    z-index: 4;
+    top: 25%;
+    animation: floatTop 4s ease-in-out infinite;
+}
+@keyframes floatTop {
+    0%,100% {transform: translateX(-50%) translateY(0);}
+    50% {transform: translateX(-50%) translateY(-20px);}
+}
+
+/* Video 3:4 */
+.video-box {
+    width: 40%;
+    max-width: 250px;
+    aspect-ratio: 3/4;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 2px solid rgba(0,191,255,0.3);
+    box-shadow: 0 0 25px rgba(0,191,255,0.3);
+    z-index: 3;
+}
+.video-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Glass box */
+.box {
+    width: 85%;
+    max-width: 500px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(0,123,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    text-align: center;
+    color: white;
+    z-index: 3;
+    animation: fadeIn 2s ease, float-box 4s infinite;
+}
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+}
+@keyframes float-box {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+}
+
+/* Eid Mubarak Text */
+.eid-text {
+    font-family: 'Lobster', cursive;
+    font-size: 36px;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    margin-bottom: 15px;
+}
+
+/* Poetry text in Georgia italic */
+.poetry-text {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #e0e0e0;
+}
+
+/* Special name with Lobster */
+.special-name {
+    display: block;
+    font-size: 22px;
+    color: #00f2ff;
+    margin-top: 15px;
+    font-family: 'Lobster', cursive;
+}
+
+/* Button with Lobster */
+.btn {
+    margin-top: 20px;
+    padding: 12px 35px;
+    border-radius: 50px;
+    border: 2px solid #00ffff;
+    background: #111;
+    color: #00ffff;
+    cursor: pointer;
+    box-shadow: 0 0 20px #00ffff;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Lobster', cursive;
+    font-size: 20px;
+}
+
+/* Glow behind button */
+.glow-bg {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: rgba(0,255,255,0.25);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0;
+    transition: 0.4s;
+    z-index: 1;
+}
+
+/* Ripple */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0,255,255,0.5);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+}
+@keyframes ripple {
+    to { transform: scale(4); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bg-music" src="music.mp3" loop></audio>
+
+<div class="stars"></div>
+<div class="moon">🌙</div>
+<div class="heart-float">❤️</div>
+
+<!-- 3 Floating Images -->
+<img src="top-image1.png" class="floating-top">
+<img src="top-image2.png" class="floating-top-2">
+<img src="top-image3.png" class="floating-top-3">
+
+<div class="glow-bg" id="glow"></div>
+
+<!-- Video -->
+<div class="video-box">
+    <video src="barira.mp4" autoplay muted loop></video>
+</div>
+
+<!-- Glass Content Box -->
+<div class="box">
+    <div class="eid-text">My Princess!</div>
+    <p class="poetry-text">"Janah, I love you.
+<br>
+Kya aap meri zindagi ki humsafar banna chahogi? <br>Main aapko dil se chahta hoon aur hamesha khush rakhna chahta hoon. Aap meri aadat ban chuki ho, aur main aapko apni har subah,har shaam aur apna sukoon banana chahta hoon.
+Kya aap mera haath thamna chahogi aur meri zindagi ka hissa banna chahogi?<br> Aapse zyada azeez mere liye koi nahi.
+<br>
+Alizay meri jaan. Aaj ke din meri sabse khoobsurat dua sirf aap ho."</p>
+    
+    <span class="special-name">Meri Jaan Alizay</span>
+    <button class="btn" onclick="clickEffect(event)">Antal-Hayat 💖</button>
+</div>
+
+<script>
+function clickEffect(e) {
+    const glow = document.getElementById("glow");
+    glow.style.opacity = "1";
+    setTimeout(() => { glow.style.opacity = "0"; }, 400);
+
+    const button = e.currentTarget;
+    const circle = document.createElement("span");
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    circle.style.width = circle.style.height = diameter + "px";
+    circle.style.left = e.offsetX - diameter / 2 + "px";
+    circle.style.top = e.offsetY - diameter / 2 + "px";
+    circle.classList.add("ripple");
+    const ripple = button.getElementsByClassName("ripple")[0];
+    if (ripple) ripple.remove();
+    button.appendChild(circle);
+
+    // Redirect to pg1.html after the ripple/glow animation
+    setTimeout(() => {
+        window.location.href = 'pg1.html';
+    }, 400);
+}
+
+let musicStarted = false;
+document.addEventListener('click', () => {
+    if (!musicStarted) {
+        const bgMusic = document.getElementById("bg-music");
+        bgMusic.volume = 0.3;
+        bgMusic.play();
+        musicStarted = true;
+    }
+});
+</script>
+
+</body>
+</html>
